@@ -1,0 +1,71 @@
+{% extends 'base.html'%}
+
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+    <div class="col-sm-4">
+        <h4 class="text-center alert alert-info">Add Student</h4>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{fm.as_p}}
+            <input type="submit" value="Add" class="btn btn-primary">
+        </form>
+    </div>
+
+        <div class="col-sm-7 offset-1">
+        <h4 class="text-center alert alert-secondary">Show Student Details</h4>
+            {% if stu %}
+
+            <table class="table table-dark">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Class</th>
+      <th scope="col">Div</th>
+        <th scope="col">Rollno</th>
+        <th scope="col">Email</th>
+        <th scope="col">Contact</th>
+        <th scope="col">Action</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for st in stu %}
+    <tr>
+      <th scope="row">{{st.id}}</th>
+      <td>{{st.name}}</td>
+      <td>{{st.uclass}}</td>
+      <td>{{st.div}}</td>
+        <td>{{st.rollno}}</td>
+        <td>{{st.email}}</td>
+        <td>{{st.contact}}</td>
+        <td>
+            <a href="{% url 'update' st.id %}" class="btn btn-warning btn-sm">Edit</a>
+           <a> <form action="{% url 'delete' st.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+           </form></a>
+        </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+            {% else %}
+
+            <h1>No decod</h1>
+
+            {%endif %}
+    </div>
+</div>
+
+
+
+</div>
+
+{% endblock %}
